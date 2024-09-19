@@ -1,0 +1,8 @@
+{
+  "name": "Loco",
+  "dockerComposeFile": "compose.yaml",
+  "service": "app",
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [5150]
+}
