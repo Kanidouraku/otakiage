@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+List of post
+{% endblock title %}
+
+{% block content %}
+<h1>post</h1>
+<div class="mb-10">
+    {% for item in items %}
+    <div class="mb-5">
+            <div>
+                <label><b>{{"content" | capitalize }}:</b> {{item.content}}</label>
+                </div>
+            <a href="/posts/{{ item.id }}/edit">Edit</a>
+            <a href="/posts/{{ item.id }}">View</a>
+        </div>
+    {% endfor %}
+
+    <br />
+    <br />
+    <a href="/posts/new">New post</a>
+</div>
+{% endblock content %}
