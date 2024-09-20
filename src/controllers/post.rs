@@ -87,6 +87,7 @@ pub async fn add(
     Json(params): Json<Params>,
 ) -> Result<Response> {
     let mut item = ActiveModel {
+        user_id: Set(1),
         ..Default::default()
     };
     params.update(&mut item);
