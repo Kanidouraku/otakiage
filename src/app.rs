@@ -46,6 +46,7 @@ impl Hooks for App {
         AppRoutes::with_default_routes()
             .add_route(controllers::post::routes())
             .add_route(controllers::user::routes())
+            .add_route(controllers::follower::routes())
     }
 
     fn connect_workers<'a>(p: &'a mut Processor, ctx: &'a AppContext) {

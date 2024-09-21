@@ -2,5 +2,6 @@
 
 pub mod prelude;
 
+pub mod followers;
 pub mod posts;
 pub mod users;
