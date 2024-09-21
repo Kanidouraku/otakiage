@@ -4,21 +4,51 @@ List of post
 {% endblock title %}
 
 {% block content %}
-<div class="h-screen flex items-center justify-center text-center ">
-    <div class="text-center ">
-        <h1 class="text-3xl font-bold ">名前を入力してください</h1>
-        <p class="mt-10">ディスプレイネーム</p>
-        <input type="text" placeholder="おたき　あげこ" class="input input-bordered w-full max-w-xs rounded-full" />
-        <p class="mt-10">ユーザーID</p>
-        <input type="text" placeholder="@otaki_ageko" class="input input-bordered w-full max-w-xs rounded-full" />
-        <div class=" nextButton items-center mt-5">
-            <button class="btn btn-wide text-white bg-orange-500 hover:bg-orange-700">次へ</button>
-        </div>
-        <div class="items-center mt-5">
-            <button
-                class="btn btn-wide text-orange-500 bg-white border-orange-500 hover:bg-orange-500 hover:text-white">戻る</button>
-        </div>
-    </div>
 
+<div class="h-screen flex items-center justify-center text-center ">
+    <div class="text-center">
+        <h1 class="text-3xl font-bold ">名前を入力してください</h1>
+        <form hx-post="/auths" hx-ext="submitjson">
+            <p class=" mt-10">ディスプレイネーム</p>
+            <input type="text" placeholder="おたき　あげこ" class="input input-bordered w-full max-w-xs rounded-full" />
+            <p class="mt-10">ユーザーID</p>
+            <input type="text" placeholder="@otaki_ageko" class="input input-bordered w-full max-w-xs rounded-full" />
+            <div class="items-center mt-5">
+                <a href="/posts">
+                    <button type="button" class="btn btn-wide text-white bg-orange-500 hover:bg-orange-700">次へ</button>
+                </a>
+            </div>
+            <div class="items-center mt-5">
+                <button type="button"
+                    class="btn btn-wide text-orange-500 bg-white border-orange-500 hover:bg-orange-500 hover:text-white">戻る</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}
+
+{% block js %}
+<script>
+    htmx.defineExtension('submitjson', {
+        onEvent: function (name, evt) {
+            if (name === "htmx:configRequest") {
+                evt.detail.headers['Content-Type'] = "application/json"
+            }
+        },
+        encodeParameters: function (xhr, parameters, elt) {
+            const json = {};
+            for (const [key, value] of Object.entries(parameters)) {
+                const inputType = elt.querySelector(`[name=${key}]`).type;
+                if (inputType === 'number') {
+                    json[key] = parseFloat(value);
+                } else if (inputType === 'checkbox') {
+                    json[key] = elt.querySelector(`[name=${key}]`).checked;
+                } else {
+                    json[key] = value;
+                }
+            }
+            return JSON.stringify(json);
+        }
+    })
+</script>
+{% endblock js %}
