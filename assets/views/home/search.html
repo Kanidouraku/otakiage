@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>検索ページ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <!-- Google Material Icons CDN -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+  <!-- コンテンツ全体を中央に配置 -->
+  <div class="container mx-auto max-w-lg bg-white p-6 rounded-lg shadow-md mt-16">
+    <!-- 検索欄 -->
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-black mb-4">検索</h1>
+      <div class="relative">
+        <input type="text" placeholder="キーワード検索" class="input input-bordered w-full pl-10 rounded-full bg-orange-100 focus:outline-none">
+        <span class="material-icons absolute left-3 top-3 text-gray-500">search</span>
+      </div>
+    </div>
+
+    <!-- トレンドとおすすめのタブ -->
+    <div class="flex justify-between border-b mb-6">
+      <button class="tab tab-bordered tab-active text-lg font-bold text-orange-500 w-1/2 text-center">現在のトレンド</button>
+      <button class="tab tab-bordered text-lg font-bold text-orange-500 w-1/2 text-center">おすすめ</button>
+    </div>
+
+    <!-- トレンドのランキング -->
+    <div id="trend-list" class="mb-6">
+      <ol class="list-decimal pl-4 space-y-2">
+        <li class="text-lg font-medium">1位 - トレンド1</li>
+        <li class="text-lg font-medium">2位 - トレンド2</li>
+        <li class="text-lg font-medium">3位 - トレンド3</li>
+        <li class="text-lg font-medium">4位 - トレンド4</li>
+        <li class="text-lg font-medium">5位 - トレンド5</li>
+      </ol>
+    </div>
+
+    <!-- おすすめのランキング -->
+    <div id="recommendation-list" class="hidden">
+      <ol class="list-decimal pl-4 space-y-2">
+        <li class="text-lg font-medium">1位 - おすすめ1</li>
+        <li class="text-lg font-medium">2位 - おすすめ2</li>
+        <li class="text-lg font-medium">3位 - おすすめ3</li>
+        <li class="text-lg font-medium">4位 - おすすめ4</li>
+        <li class="text-lg font-medium">5位 - おすすめ5</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ナビゲーションバー -->
+  <div class="fixed bottom-0 w-full bg-white flex justify-around py-4 border-t">
+    <button class="btn btn-ghost btn-custom">
+      <span class="material-icons text-2xl">home</span>
+    </button>
+    <button class="btn btn-ghost btn-custom">
+      <span class="material-icons text-2xl">search</span>
+    </button>
+    <button class="btn btn-ghost btn-custom">
+      <span class="material-icons text-2xl">notifications</span>
+    </button>
+    <button class="btn btn-ghost btn-custom" onclick="window.location.href='setting.html'">
+      <span class="material-icons text-2xl">settings</span>
+    </button>
+  </div>
+
+  <script>
+    const trendTab = document.querySelector('.tab-active');
+    const recommendationTab = document.querySelector('.tab:not(.tab-active)');
+    const trendList = document.getElementById('trend-list');
+    const recommendationList = document.getElementById('recommendation-list');
+
+    trendTab.addEventListener('click', () => {
+      trendTab.classList.add('tab-active');
+      recommendationTab.classList.remove('tab-active');
+      trendList.classList.remove('hidden');
+      recommendationList.classList.add('hidden');
+    });
+
+    recommendationTab.addEventListener('click', () => {
+      recommendationTab.classList.add('tab-active');
+      trendTab.classList.remove('tab-active');
+      recommendationList.classList.remove('hidden');
+      trendList.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

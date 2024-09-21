@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォロー中とおすすめの投稿</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.18.0/dist/full.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <!-- Tabs -->
+        <div class="flex justify-center mb-4">
+            <div class="tabs">
+                <a id="tab-suggested" class="tab tab-bordered tab-active font-bold text-2xl text-orange-500" onclick="showSuggested()">おすすめ</a>
+                <a id="tab-following" class="tab tab-bordered font-bold text-2xl text-orange-500" onclick="showFollowing()">フォロー中</a>
+            </div>
+        </div>
+
+        <!-- Posts List for "おすすめ" -->
+        <div id="suggested-posts" class="rounded-lg p-4 space-y-4">
+            <!-- Suggested Post 1 -->
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">ご飯</span>
+                            <span class="text-gray-500">@gohan5858</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">10分</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        カフェイン飲料全く効かないのに徹夜できるんか...?
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>10</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>100</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggested Post 2 -->
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">狂犬太郎</span>
+                            <span class="text-gray-500">@ddogshotaro</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">30分</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        洗濯したのに靴下片方だけ行方不明
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>42</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>600</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suggested Post 3 -->
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">カズト</span>
+                            <span class="text-gray-500">@Kazuto83</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">50分</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        休日に早起きしようと思ったのに、気づいたら昼過ぎ。休みが半分終わってる。はあ
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>49</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>460</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Posts List for "フォロー中" -->
+        <div id="following-posts" class="rounded-lg p-4 space-y-4 hidden">
+            <!-- Followed Post 1 -->
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">夏流</span>
+                            <span class="text-gray-500">@natsu_921</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">5分</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        充電100%にして出かけたのに、今見たら残り10%。何に使ったんだ…？
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>30</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>250</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Followed Post 2 -->
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">清水</span>
+                            <span class="text-gray-500">@toshi21</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">3時間</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        今から寝ようと思ったのに、やり忘れてた仕事を急に思い出した。寝る直前に限って頭が働くのやめてほしい。
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>41</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>530</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Followed Post 3 -->
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">ゆうた</span>
+                            <span class="text-gray-500">@YutaNmoto</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">2時間</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        一匹見つけた。ゴキブリは仲間がたくさんいる。家中が戦場。
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>5</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>54</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ナビゲーションバー -->
+  <div class="fixed bottom-0 w-full bg-white flex justify-around py-4 border-t">
+    <button class="btn btn-ghost btn-custom">
+      <span class="material-icons text-2xl">home</span>
+    </button>
+    <button class="btn btn-ghost btn-custom" onclick="window.location.href='search.html'">
+      <span class="material-icons text-2xl">search</span>
+    </button>
+    <button class="btn btn-ghost btn-custom"> 
+      <span class="material-icons text-2xl">notifications</span>
+    </button>
+    <button class="btn btn-ghost btn-custom" onclick="window.location.href='setting.html'">
+      <span class="material-icons text-2xl">settings</span>
+    </button>
+  </div>
+    <!-- Google Material Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script>
+        function showSuggested() {
+            // Activate the "おすすめ" tab
+            document.getElementById('tab-suggested').classList.add('tab-active');
+            document.getElementById('tab-following').classList.remove('tab-active');
+
+            // Show "おすすめ" posts and hide "フォロー中" posts
+            document.getElementById('suggested-posts').classList.remove('hidden');
+            document.getElementById('following-posts').classList.add('hidden');
+        }
+
+        function showFollowing() {
+            // Activate the "フォロー中" tab
+            document.getElementById('tab-following').classList.add('tab-active');
+            document.getElementById('tab-suggested').classList.remove('tab-active');
+
+            // Show "フォロー中" posts and hide "おすすめ" posts
+            document.getElementById('following-posts').classList.remove('hidden');
+            document.getElementById('suggested-posts').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
