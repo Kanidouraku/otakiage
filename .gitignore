@@ -19,3 +19,5 @@ target/
 *.sqlite
 
 node_modules/
+
+assets/static/index.css
