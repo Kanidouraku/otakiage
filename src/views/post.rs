@@ -1,5 +1,4 @@
 use loco_rs::prelude::*;
-use sea_orm::SelectColumns;
 use serde::{Deserialize, Serialize};
 
 use crate::models::_entities::{impressions, otakiages, posts};

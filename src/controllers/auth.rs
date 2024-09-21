@@ -9,8 +9,7 @@ use crate::{
     views,
 };
 use axum::debug_handler;
-use format::redirect;
-use loco_rs::{db::create, prelude::*};
+use loco_rs::prelude::*;
 use sea_orm::{sea_query::Order, QueryOrder};
 use serde::{Deserialize, Serialize};
 

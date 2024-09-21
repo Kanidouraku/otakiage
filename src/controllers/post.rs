@@ -9,11 +9,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     models::{
         self,
-        _entities::{
-            otakiages,
-            posts::{ActiveModel, Column, Entity, Model},
-            prelude,
-        },
+        _entities::posts::{ActiveModel, Column, Entity, Model},
     },
     views,
 };

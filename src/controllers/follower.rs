@@ -3,14 +3,12 @@
 #![allow(clippy::unused_async)]
 use axum::debug_handler;
 use loco_rs::prelude::*;
-use migration::Expr;
 use sea_orm::{sea_query::Order, QueryOrder, QuerySelect};
 use serde::{Deserialize, Serialize};
 
 use crate::{
     models::_entities::{
-        followers::{self, ActiveModel, Column, Entity, Model},
-        prelude::Users,
+        followers::{self, ActiveModel, Entity, Model},
         users,
     },
     views,
@@ -47,7 +45,7 @@ pub async fn list(
         .into_tuple::<i32>()
         .all(&ctx.db)
         .await?;
-    
+
     let followers = users::Entity::find()
         .filter(users::Column::Id.is_in(own_follower_ids))
         .order_by(users::Column::Id, Order::Asc)
