@@ -10,7 +10,9 @@ use crate::{
     models::{
         self,
         _entities::{
-            otakiages, posts::{ActiveModel, Column, Entity, Model}, prelude
+            otakiages,
+            posts::{ActiveModel, Column, Entity, Model},
+            prelude,
         },
     },
     views,
@@ -99,6 +101,13 @@ pub async fn add(
 
     let item = item.insert(&ctx.db).await?;
     models::_entities::otakiages::ActiveModel {
+        post_id: Set(item.id),
+        count: Set(0),
+        ..Default::default()
+    }
+    .insert(&ctx.db)
+    .await?;
+    models::_entities::impressions::ActiveModel {
         post_id: Set(item.id),
         count: Set(0),
         ..Default::default()

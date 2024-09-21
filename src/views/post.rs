@@ -2,12 +2,13 @@ use loco_rs::prelude::*;
 use sea_orm::SelectColumns;
 use serde::{Deserialize, Serialize};
 
-use crate::models::_entities::{otakiages, posts};
+use crate::models::_entities::{impressions, otakiages, posts};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PostWithOtakiageCount {
     pub post: posts::Model,
     pub otakiage_count: i32,
+    pub impressions_count: i32,
 }
 
 /// Render a list view of posts.
@@ -25,11 +26,15 @@ pub async fn list(
 
     for item in items {
         let otakiage = item.find_related(otakiages::Entity).one(&ctx.db).await?;
-        if let Some(otakiage) = otakiage {
+        let impressions = item.find_related(impressions::Entity).one(&ctx.db).await?;
+        if let (Some(otakiage), Some(impressions)) = (otakiage, impressions) {
             let otakiage_count = otakiage.count;
+            let impressions_count = impressions.count;
+
             post_with_otakiage_count.push(PostWithOtakiageCount {
                 post: item.clone(),
                 otakiage_count,
+                impressions_count,
             });
         }
     }

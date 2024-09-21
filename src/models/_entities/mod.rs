@@ -3,6 +3,7 @@
 pub mod prelude;
 
 pub mod followers;
+pub mod impressions;
 pub mod otakiages;
 pub mod posts;
 pub mod users;

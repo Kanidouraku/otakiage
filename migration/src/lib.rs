@@ -6,6 +6,7 @@ mod m20240920_132818_users;
 mod m20240920_153342_posts;
 mod m20240921_035820_followers;
 mod m20240921_155329_otakiages;
+mod m20240921_174255_impressions;
 pub struct Migrator;
 
 #[async_trait::async_trait]
@@ -16,6 +17,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20240920_153342_posts::Migration),
             Box::new(m20240921_035820_followers::Migration),
             Box::new(m20240921_155329_otakiages::Migration),
+            Box::new(m20240921_174255_impressions::Migration),
         ]
     }
 }
