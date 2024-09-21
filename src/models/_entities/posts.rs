@@ -17,7 +17,9 @@ pub struct Model {
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_one = "super::otakiages::Entity")]
+    #[sea_orm(has_many = "super::impressions::Entity")]
+    Impressions,
+    #[sea_orm(has_many = "super::otakiages::Entity")]
     Otakiages,
     #[sea_orm(
         belongs_to = "super::users::Entity",
@@ -27,6 +29,12 @@ pub enum Relation {
         on_delete = "Cascade"
     )]
     Users,
+}
+
+impl Related<super::impressions::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Impressions.def()
+    }
 }
 
 impl Related<super::otakiages::Entity> for Entity {
