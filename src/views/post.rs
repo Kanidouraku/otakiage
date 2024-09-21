@@ -1,11 +1,22 @@
+use chrono::Timelike;
 use loco_rs::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::models::_entities::{impressions, otakiages, posts};
+use crate::models::_entities::{impressions, otakiages, posts, users};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PostWithOtakiageCount {
     pub post: posts::Model,
+    pub otakiage_count: i32,
+    pub impressions_count: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ListViewPost {
+    pub display_name: String,
+    pub user_id: String,
+    pub elapsed_time_since_post: u32,
+    pub content: String,
     pub otakiage_count: i32,
     pub impressions_count: i32,
 }
@@ -20,7 +31,7 @@ pub async fn list(
     items: &Vec<posts::Model>,
     ctx: &AppContext,
 ) -> Result<Response> {
-    let mut post_with_otakiage_count = Vec::new();
+    let mut recommended_posts = Vec::new();
     // 各postsのotakiage数をotakiageテーブルからposts_idを使って取得する
 
     for item in items {
@@ -30,18 +41,28 @@ pub async fn list(
             let otakiage_count = otakiage.count;
             let impressions_count = impressions.count;
 
-            post_with_otakiage_count.push(PostWithOtakiageCount {
-                post: item.clone(),
-                otakiage_count,
-                impressions_count,
-            });
+            let user = item.find_related(users::Entity).one(&ctx.db).await?;
+            let elapsed_time_since_post_second =
+                chrono::Utc::now().timestamp() - item.created_at.timestamp();
+            let elapsed_time_since_post = elapsed_time_since_post_second as u32 / 60;
+
+            if let Some(user) = user {
+                recommended_posts.push(ListViewPost {
+                    display_name: user.display_name.clone(),
+                    user_id: user.user_id.clone(),
+                    elapsed_time_since_post,
+                    content: item.content.clone().unwrap_or("Empty".to_string()),
+                    otakiage_count,
+                    impressions_count,
+                });
+            }
         }
     }
 
     format::render().view(
         v,
         "post/list.html",
-        serde_json::json!({"items": post_with_otakiage_count}),
+        serde_json::json!({"recommended_posts": recommended_posts, "followed_posts": recommended_posts}),
     )
 }
 

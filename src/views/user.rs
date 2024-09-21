@@ -1,6 +1,6 @@
 use loco_rs::prelude::*;
 
-use crate::models::_entities::users;
+use crate::{controllers::user::Profile, models::_entities::users};
 
 /// Render a list view of users.
 ///
@@ -36,4 +36,13 @@ pub fn create(v: &impl ViewRenderer) -> Result<Response> {
 /// When there is an issue with rendering the view.
 pub fn edit(v: &impl ViewRenderer, item: &users::Model) -> Result<Response> {
     format::render().view(v, "user/edit.html", serde_json::json!({"item": item}))
+}
+
+/// Render a user profile view.
+///
+/// # Errors
+///
+/// When there is an issue with rendering the view.
+pub fn profile(v: &impl ViewRenderer, profile: &Profile) -> Result<Response> {
+    format::render().view(v, "user/profile.html", serde_json::json!({"profile": profile}))
 }

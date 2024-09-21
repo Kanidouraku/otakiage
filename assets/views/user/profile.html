@@ -1,52 +1,44 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィール</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+{% extends "base.html" %}
 
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <style>
-        .btn-custom:focus {
-            background-color: #f97316 !important; /* Tailwind orange */
-            color: white;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 h-screen flex items-center justify-center">
+{% block title %}
+Profile
+{% endblock title %}
+
+{% block content %}
+
+<div class="bg-gray-100 h-screen flex items-center justify-center">
     <!-- プロフィールカード -->
     <div class="flex flex-col max-w-md bg-white shadow-md rounded-lg p-4">
         <!-- ヘッダー -->
         <div class="flex justify-between items-center mb-4">
             <button class="btn btn-ghost text-2xl">←</button>
-           
+
         </div>
-        
+
         <!-- プロフィール画像 -->
         <div class="flex justify-center mb-4">
-            <img class="mask mask-circle w-24 h-24" src="fireicon1.png" alt="Profile Image">
+            <img class="mask mask-circle w-24 h-24" src="/static/fireicon1.png" alt="Profile Image">
         </div>
 
         <!-- 名前とユーザーネーム -->
         <div class="text-center">
-            <h1 class="text-3xl font-bold text-black">あおりゅ</h1>
-            <p class="text-black text-lg">@kaaiikai_x</p>
+            <h1 class="text-3xl font-bold text-black">{{profile.display_name}}</h1>
+            <p class="text-black text-lg">{{profile.user_id}}</p>
         </div>
 
         <!-- その他の情報 -->
         <div class="text-center mt-4 text-sm text-gray-600">
-            <p>近大情報学部 58ハッカソン参加予定</p>
+            <p>{{profile.description}}</p>
         </div>
 
         <!-- フォロワー情報 (ボタンに変更してリンクを追加) -->
         <div class="flex justify-around mt-4 text-sm font-bold">
             <a href="follower.html?tab=followers" class="btn btn-outline btn-custom">
-                <p>2</p>
+                <p>{{profile.follower_count}}</p>
                 <p class="text-gray-500">フォロワー</p>
             </a>
             <a href="follower.html?tab=following" class="btn btn-outline btn-custom">
-                <p>2</p>
+                <p>{{profile.following_count}}</p>
                 <p class="text-gray-500">フォロー中</p>
             </a>
         </div>
@@ -67,8 +59,8 @@
             <span class="material-icons">settings</span>
         </button>
     </div>
-    
+
     <!-- Google Material Icons CDN -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</body>
-</html>
+</div>
+{% endblock content %}
