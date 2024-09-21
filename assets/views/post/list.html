@@ -12,6 +12,7 @@ List of post
         <div>
             <label><b>{{"content" | capitalize }}:</b> {{item.post.content}}</label>
             <label><b>{{"🔥" | capitalize }}:</b> {{item.otakiage_count}}</label>
+            <label><b>{{"👀" | capitalize }}:</b> {{item.impressions_count}}</label>
         </div>
         <a href="/posts/{{ item.post.id }}/edit">Edit</a>
         <a href="/posts/{{ item.post.id }}">View</a>
