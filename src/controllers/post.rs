@@ -41,7 +41,7 @@ pub async fn list(
         .order_by(Column::Id, Order::Desc)
         .all(&ctx.db)
         .await?;
-    views::post::list(&v, &item)
+    views::post::list(&v, &item, &ctx).await
 }
 
 #[debug_handler]

@@ -9,12 +9,13 @@ List of post
 <div class="mb-10">
     {% for item in items %}
     <div class="mb-5">
-            <div>
-                <label><b>{{"content" | capitalize }}:</b> {{item.content}}</label>
-                </div>
-            <a href="/posts/{{ item.id }}/edit">Edit</a>
-            <a href="/posts/{{ item.id }}">View</a>
+        <div>
+            <label><b>{{"content" | capitalize }}:</b> {{item.post.content}}</label>
+            <label><b>{{"🔥" | capitalize }}:</b> {{item.otakiage_count}}</label>
         </div>
+        <a href="/posts/{{ item.post.id }}/edit">Edit</a>
+        <a href="/posts/{{ item.post.id }}">View</a>
+    </div>
     {% endfor %}
 
     <br />
