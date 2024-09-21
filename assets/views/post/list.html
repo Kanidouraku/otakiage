@@ -5,22 +5,129 @@ List of post
 {% endblock title %}
 
 {% block content %}
-<h1>post</h1>
-<div class="mb-10">
-    {% for item in items %}
-    <div class="mb-5">
-        <div>
-            <label><b>{{"content" | capitalize }}:</b> {{item.post.content}}</label>
-            <label><b>{{"🔥" | capitalize }}:</b> {{item.otakiage_count}}</label>
-            <label><b>{{"👀" | capitalize }}:</b> {{item.impressions_count}}</label>
+<div class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <!-- Tabs -->
+        <div class="flex justify-center mb-4">
+            <div class="tabs">
+                <a id="tab-suggested" class="tab tab-bordered tab-active font-bold text-2xl text-orange-500"
+                    onclick="showSuggested()">おすすめ</a>
+                <a id="tab-following" class="tab tab-bordered font-bold text-2xl text-orange-500"
+                    onclick="showFollowing()">フォロー中</a>
+            </div>
         </div>
-        <a href="/posts/{{ item.post.id }}/edit">Edit</a>
-        <a href="/posts/{{ item.post.id }}">View</a>
-    </div>
-    {% endfor %}
 
-    <br />
-    <br />
-    <a href="/posts/new">New post</a>
+        <!-- Posts List for "おすすめ" -->
+        <div id="suggested-posts" class="rounded-lg p-4 space-y-4">
+            <!-- Suggested Post 1 -->
+            {% for r_post in recommended_posts %}
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300">
+                        <img src="/static/image.png" alt="avatar" class="w-12 h-12 rounded-full">
+                    </div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">{{r_post.display_name}}</span>
+                            <span class="text-gray-500">{{r_post.user_id}}</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">{{r_post.elapsed_time_since_post}}分</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        {{r_post.content}}
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="/static/firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>{{r_post.otakiage_count}}</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="/static/firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>{{r_post.impressions_count}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Posts List for "フォロー中" -->
+        <div id="following-posts" class="rounded-lg p-4 space-y-4 hidden">
+            <!-- Followed Post 1 -->
+            {% for f_post in followed_posts %}
+            <div class="flex items-start space-x-4">
+                <div class="avatar">
+                    <div class="w-12 h-12 rounded-full bg-gray-300">
+                        <img src="/static/fireicon1.png" alt="avatar" class="w-12 h-12 rounded-full">
+                    </div>
+                </div>
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-between items-center w-full">
+                        <div>
+                            <span class="font-bold">{{f_post.display_name}}</span>
+                            <span class="text-gray-500">{{f_post.user_id}}</span>
+                        </div>
+                        <span class="text-gray-400 text-sm">{{f_post.elapsed_time_since_post}}分</span>
+                    </div>
+                    <p class="mt-2 text-gray-700">
+                        {{f_post.content}}
+                    </p>
+                    <div class="mt-2 flex items-center">
+                        <button class="flex items-center text-red-500 space-x-1">
+                            <img src="/static/firemark.png" alt="custom logo" class="w-5 h-5">
+                            <span>{{f_post.otakiage_count}}</span>
+                        </button>
+                        <button class="flex items-center text-red-500 space-x-1 ml-4">
+                            <img src="/static/firemark2.png" alt="Impression logo" class="w-5 h-5">
+                            <span>{{f_post.impressions_count}}</span>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ナビゲーションバー -->
+    <div class="fixed bottom-0 w-full bg-white flex justify-around py-4 border-t">
+        <button class="btn btn-ghost btn-custom">
+            <span class="material-icons text-2xl">home</span>
+        </button>
+        <button class="btn btn-ghost btn-custom" onclick="window.location.href='search.html'">
+            <span class="material-icons text-2xl">search</span>
+        </button>
+        <button class="btn btn-ghost btn-custom">
+            <span class="material-icons text-2xl">notifications</span>
+        </button>
+        <button class="btn btn-ghost btn-custom" onclick="window.location.href='setting.html'">
+            <span class="material-icons text-2xl">settings</span>
+        </button>
+    </div>
+    <!-- Google Material Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script>
+        function showSuggested() {
+            // Activate the "おすすめ" tab
+            document.getElementById('tab-suggested').classList.add('tab-active');
+            document.getElementById('tab-following').classList.remove('tab-active');
+
+            // Show "おすすめ" posts and hide "フォロー中" posts
+            document.getElementById('suggested-posts').classList.remove('hidden');
+            document.getElementById('following-posts').classList.add('hidden');
+        }
+
+        function showFollowing() {
+            // Activate the "フォロー中" tab
+            document.getElementById('tab-following').classList.add('tab-active');
+            document.getElementById('tab-suggested').classList.remove('tab-active');
+
+            // Show "フォロー中" posts and hide "おすすめ" posts
+            document.getElementById('following-posts').classList.remove('hidden');
+            document.getElementById('suggested-posts').classList.add('hidden');
+        }
+    </script>
 </div>
 {% endblock content %}
