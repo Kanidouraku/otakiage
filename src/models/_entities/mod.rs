@@ -3,5 +3,6 @@
 pub mod prelude;
 
 pub mod followers;
+pub mod otakiages;
 pub mod posts;
 pub mod users;
