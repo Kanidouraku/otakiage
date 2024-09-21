@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロフィール編集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto max-w-md bg-white p-6 rounded-lg shadow-md mt-10">
+        <!-- ヘッダー -->
+        <div class="flex justify-between mb-6">
+            <a href="index.html" class="text-gray-700 text-lg">キャンセル</a>
+            <h1 class="text-xl font-bold text-black">編集</h1>
+            <!--index.htmlに移動-->
+            <a href="index.html" class="text-orange-500 font-bold ">保存</a>        </div>
+
+        <!-- プロフィール写真 -->
+        <div class="flex justify-center mb-6">
+            <div class="avatar">
+                <div class="w-24 h-24 rounded-full bg-gray-300"></div>
+            </div>
+        </div>
+
+        <!-- フォーム -->
+        <form id="profileEditForm" action="index.html" method="POST">
+            <!-- ディスプレイネーム -->
+            <div class="mb-4">
+                <label for="displayName" class="block text-gray-700 font-bold mb-2">[名前]</label>
+                <input type="text" id="displayName" name="displayName" class="input input-bordered w-full bg-orange-100" placeholder="表示名を入力" required>
+            </div>
+
+            <!-- ユーザーID -->
+            <div class="mb-4">
+                <label for="userId" class="block text-gray-700 font-bold mb-2">[ユーザーネーム]</label>
+                <input type="text" id="userId" name="userId" class="input input-bordered w-full bg-orange-100" placeholder="IDを入力" required>
+            </div>
+
+            <!-- 自己紹介 -->
+            <div class="mb-4">
+                <label for="bio" class="block text-gray-700 font-bold mb-2">[自己紹介]</label>
+                <textarea id="bio" name="bio" class="textarea textarea-bordered w-full bg-orange-100" placeholder="自己紹介を入力" rows="3" required></textarea>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
