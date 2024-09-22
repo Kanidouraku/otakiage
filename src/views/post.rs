@@ -15,7 +15,7 @@ pub struct PostWithOtakiageCount {
 pub struct ListViewPost {
     pub display_name: String,
     pub user_id: String,
-    pub elapsed_time_since_post: u32,
+    pub elapsed_time_since_post: String,
     pub content: String,
     pub otakiage_id: i32,
     pub otakiage_count: i32,
@@ -45,7 +45,14 @@ pub async fn list(
             let user = item.find_related(users::Entity).one(&ctx.db).await?;
             let elapsed_time_since_post_second =
                 chrono::Utc::now().timestamp() - item.created_at.timestamp();
-            let elapsed_time_since_post = elapsed_time_since_post_second as u32 / 60;
+            let elapsed_time_since_post_int = elapsed_time_since_post_second as u32 / 60;
+            let elapsed_time_since_post = if elapsed_time_since_post_int < 60 {
+                format!("{}分前", elapsed_time_since_post_int)
+            } else if elapsed_time_since_post_int < 60 * 24 {
+                format!("{}時間前", elapsed_time_since_post_int / 60)
+            } else {
+                format!("{}日前", elapsed_time_since_post_int / 60 / 24)
+            };
 
             if let Some(user) = user {
                 recommended_posts.push(ListViewPost {
