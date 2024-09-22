@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+List of user
+{% endblock title %}
+
+{% block content %}
+<h1>user</h1>
+<div class="mb-10">
+    {% for item in items %}
+    <div class="mb-5">
+            <div>
+                <label><b>{{"user_id" | capitalize }}:</b> {{item.user_id}}</label>
+                </div>
+            <div>
+                <label><b>{{"display_name" | capitalize }}:</b> {{item.display_name}}</label>
+                </div>
+            <div>
+                <label><b>{{"icon_path" | capitalize }}:</b> {{item.icon_path}}</label>
+                </div>
+            <a href="/users/{{ item.id }}/edit">Edit</a>
+            <a href="/users/{{ item.id }}">View</a>
+        </div>
+    {% endfor %}
+
+    <br />
+    <br />
+    <a href="/users/new">New user</a>
+</div>
+{% endblock content %}

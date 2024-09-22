@@ -1,10 +1,5 @@
-use std::time::Duration;
-
 use loco_rs::prelude::*;
 use serde::{Deserialize, Serialize};
-use tokio::time::sleep;
-
-use crate::models::users;
 
 pub struct DownloadWorker {
     pub ctx: AppContext,
@@ -28,15 +23,15 @@ impl worker::Worker<DownloadWorkerArgs> for DownloadWorker {
         println!("================================================");
         println!("Sending payment report to user {}", args.user_guid);
 
-        sleep(Duration::from_millis(2000)).await;
+        // sleep(Duration::from_millis(2000)).await;
 
-        let all = users::Entity::find()
-            .all(&self.ctx.db)
-            .await
-            .map_err(Box::from)?;
-        for user in &all {
-            println!("user: {}", user.id);
-        }
+        // let all = users::Entity::find()
+        //     .all(&self.ctx.db)
+        //     .await
+        //     .map_err(Box::from)?;
+        // for user in &all {
+        //     println!("user: {}", user.id);
+        // }
         println!("================================================");
         Ok(())
     }

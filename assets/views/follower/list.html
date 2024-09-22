@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+List of post
+{% endblock title %}
+
+{% block content %}
+<h1>post</h1>
+<div class="mb-10">
+    {% for follower in followers %}
+    <div class="mb-5">
+        <div>
+            <label><b>{{"content" | capitalize }}:</b> {{follower.display_name}}</label>
+        </div>
+    </div>
+    {% endfor %}
+
+    <br />
+    <br />
+</div>
+{% endblock content %}

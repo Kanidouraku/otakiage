@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォロワー/フォロー中</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- 戻るボタン -->
+    <div class="flex justify-start p-4">
+        <a href="index.html" class="btn btn-ghost text-xl">← 戻る</a>
+    </div>
+
+    <!-- タブのナビゲーション -->
+    <div class="flex justify-center bg-white shadow-md">
+        <div class="tabs w-full max-w-md">
+            <a id="followers-tab" class="tab tab-bordered w-1/2" href="follower.html?tab=followers">フォロワー</a>
+            <a id="following-tab" class="tab tab-bordered w-1/2" href="follower.html?tab=following">フォロー中</a>
+        </div>
+    </div>
+
+    <!-- フォロワーリスト -->
+    <div id="followers-list" class="flex flex-col max-w-md mx-auto bg-white shadow-md mt-2 hidden">
+        <!-- 各フォロワーのリスト -->
+        <div class="flex items-center p-4 border-b">
+            <div class="avatar">
+                <div class="w-12 h-12 rounded-full bg-blue-500"></div>
+            </div>
+            <div class="ml-4">
+                <p class="font-bold text-lg">ご飯</p>
+                <p class="text-gray-500 text-sm">@gohan5858</p>
+                <p class="text-sm">情報学部B2<br>kithub所属<br><span class="text-blue-500">#近大情報学部</span> <span class="text-blue-500">#近大</span></p>
+            </div>
+        </div>
+        <!-- 追加のフォロワー -->
+        <div class="flex items-center p-4 border-b">
+            <div class="avatar">
+                <div class="w-12 h-12 rounded-full bg-green-500"></div>
+            </div>
+            <div class="ml-4">
+                <p class="font-bold text-lg">富士山</p>
+                <p class="text-gray-500 text-sm">@otherfji</p>
+                <p class="text-sm">23歳です<br>Tech Club<br><span class="text-blue-500">#Tech部</span> <span class="text-blue-500">#学部</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- フォロー中リスト -->
+    <div id="following-list" class="flex flex-col max-w-md mx-auto bg-white shadow-md mt-2 hidden">
+        <!-- 各フォロー中のリスト -->
+        <div class="flex items-center p-4 border-b">
+            <div class="avatar">
+                <div class="w-12 h-12 rounded-full bg-red-500"></div>
+            </div>
+            <div class="ml-4">
+                <p class="font-bold text-lg">味噌</p>
+                <p class="text-gray-500 text-sm">@misous23</p>
+                <p class="text-sm">情報学部知能<br>システム開発<br><span class="text-blue-500">#篠崎ゼミ</span> <span class="text-blue-500">#ハッカソン</span></p>
+            </div>
+        </div>
+        <!-- さらに追加 -->
+        <div class="flex items-center p-4 border-b">
+            <div class="avatar">
+                <div class="w-12 h-12 rounded-full bg-orange-400"></div>
+            </div>
+            <div class="ml-4">
+                <p class="font-bold text-lg">情報太郎</p>
+                <p class="text-gray-500 text-sm">@infomarts</p>
+                <p class="text-sm">情報学部サイバーサイバー<br>テニスクラブ<br><span class="text-blue-500">#java</span> <span class="text-blue-500">#python</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ナビゲーションバー -->
+    <div class="fixed bottom-0 w-full bg-white flex justify-around py-4 border-t">
+        <button class="btn btn-ghost btn-custom">
+            <span class="material-icons">home</span>
+        </button>
+        <button class="btn btn-ghost btn-custom">
+            <span class="material-icons">search</span>
+        </button>
+        <button class="btn btn-ghost btn-custom">
+            <span class="material-icons">notifications</span>
+        </button>
+        <button class="btn btn-ghost btn-custom" onclick="window.location.href='setting.html'">
+            <span class="material-icons">settings</span>
+        </button>
+    </div>
+
+    <!-- Google Material Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- スクリプトでクエリパラメータを確認し、表示を切り替える -->
+    <script>
+        // URLからクエリパラメータを取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+
+        const followersTab = document.getElementById('followers-tab');
+        const followingTab = document.getElementById('following-tab');
+        const followersList = document.getElementById('followers-list');
+        const followingList = document.getElementById('following-list');
+
+        // クエリパラメータに基づいて表示を切り替える
+        if (tab === 'followers') {
+            followersTab.classList.add('tab-active');
+            followingTab.classList.remove('tab-active');
+            followersList.classList.remove('hidden');
+        } else if (tab === 'following') {
+            followingTab.classList.add('tab-active');
+            followersTab.classList.remove('tab-active');
+            followingList.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

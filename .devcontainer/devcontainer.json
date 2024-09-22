@@ -4,5 +4,30 @@
   "service": "app",
   "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "forwardPorts": [5150]
+  "forwardPorts": [5150],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "EditorConfig.EditorConfig",
+        "usernamehw.errorlens",
+        "mhutchie.git-graph",
+        "vector-of-bool.gitflow",
+        "GitHub.vscode-pull-request-github",
+        "eamodio.gitlens",
+        "ecmel.vscode-html-css",
+        "MS-CEINTL.vscode-language-pack-ja",
+        "humao.rest-client",
+        "karunamurti.tera",
+        "SimonSiefke.svg-preview",
+        "vadimcn.vscode-lldb",
+        "formulahendry.auto-rename-tag",
+        "fill-labs.dependi",
+        "tamasfe.even-better-toml",
+        "rust-lang.rust-analyzer",
+        "bradlc.vscode-tailwindcss",
+        "ionutvmi.path-autocomplete"
+      ]
+    }
+  }
 }

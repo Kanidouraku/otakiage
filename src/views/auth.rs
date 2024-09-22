@@ -1,23 +1,21 @@
-use serde::{Deserialize, Serialize};
+use loco_rs::prelude::*;
 
-use crate::models::_entities::users;
+use crate::models::_entities::posts;
 
-#[derive(Debug, Deserialize, Serialize)]
-pub struct LoginResponse {
-    pub token: String,
-    pub pid: String,
-    pub name: String,
-    pub is_verified: bool,
+/// Render a list view of auths.
+///
+/// # Errors
+///
+/// When there is an issue with rendering the view.
+pub fn input(v: &impl ViewRenderer) -> Result<Response> {
+    format::render().view(v, "auth/input.html", serde_json::json!({}))
 }
 
-impl LoginResponse {
-    #[must_use]
-    pub fn new(user: &users::Model, token: &String) -> Self {
-        Self {
-            token: token.to_string(),
-            pid: user.pid.to_string(),
-            name: user.name.clone(),
-            is_verified: user.email_verified_at.is_some(),
-        }
-    }
+/// Redirect to the list view of posts.
+///
+/// # Errors
+///
+/// When there is an issue with rendering the view.
+pub async fn add(v: &impl ViewRenderer, items: &Vec<posts::Model>) -> Result<Response> {
+    format::render().view(v, "post/list.html", serde_json::json!({"items": items}))
 }
