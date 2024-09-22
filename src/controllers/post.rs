@@ -3,13 +3,16 @@
 #![allow(clippy::unused_async)]
 use axum::debug_handler;
 use loco_rs::prelude::*;
-use sea_orm::{sea_query::Order, QueryOrder};
+use sea_orm::{sea_query::Order, QueryOrder, SelectColumns};
 use serde::{Deserialize, Serialize};
 
 use crate::{
     models::{
         self,
-        _entities::posts::{ActiveModel, Column, Entity, Model},
+        _entities::{
+            otakiages,
+            posts::{self, ActiveModel, Column, Entity, Model},
+        },
     },
     views,
 };
@@ -43,11 +46,22 @@ pub async fn list(
     let posts = Entity::find().all(&ctx.db).await?;
     // すべてのpostのimpressions数を増加
     for post in posts {
+        let otakiage_count = post
+            .find_related(models::_entities::otakiages::Entity)
+            .one(&ctx.db)
+            .await?
+            .expect("otakiage count")
+            .count;
+
         let impressions = post
             .find_related(models::_entities::impressions::Entity)
             .one(&ctx.db)
             .await?;
         if let Some(mut impressions) = impressions {
+            if otakiage_count * 5 + impressions.count > 200 {
+                post.delete(&ctx.db).await?;
+                continue;
+            }
             impressions.count += 1;
             let count = impressions.count;
             let mut active_impressions = impressions.into_active_model();
