@@ -17,6 +17,7 @@ pub struct ListViewPost {
     pub user_id: String,
     pub elapsed_time_since_post: u32,
     pub content: String,
+    pub otakiage_id: i32,
     pub otakiage_count: i32,
     pub impressions_count: i32,
 }
@@ -52,6 +53,7 @@ pub async fn list(
                     user_id: user.user_id.clone(),
                     elapsed_time_since_post,
                     content: item.content.clone().unwrap_or("Empty".to_string()),
+                    otakiage_id: otakiage.id,
                     otakiage_count,
                     impressions_count,
                 });

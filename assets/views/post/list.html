@@ -41,9 +41,11 @@ List of post
                         {{r_post.content}}
                     </p>
                     <div class="mt-2 flex items-center">
-                        <button class="flex items-center text-red-500 space-x-1">
+                        <button hx-post="/otakiages/{{r_post.otakiage_id}}/increment" hx-swap="innerHTML"
+                            hx-target="#otakiage-count-{{r_post.otakiage_id}}"
+                            class="flex items-center text-red-500 space-x-1">
                             <img src="/static/firemark.png" alt="custom logo" class="w-5 h-5">
-                            <span>{{r_post.otakiage_count}}</span>
+                            <span id="otakiage-count-{{r_post.otakiage_id}}">{{r_post.otakiage_count}}</span>
                         </button>
                         <button class="flex items-center text-red-500 space-x-1 ml-4">
                             <img src="/static/firemark2.png" alt="Impression logo" class="w-5 h-5">
