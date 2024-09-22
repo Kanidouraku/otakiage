@@ -39,6 +39,23 @@ pub async fn list(
         .order_by(Column::Id, Order::Desc)
         .all(&ctx.db)
         .await?;
+
+    let posts = Entity::find().all(&ctx.db).await?;
+    // すべてのpostのimpressions数を増加
+    for post in posts {
+        let impressions = post
+            .find_related(models::_entities::impressions::Entity)
+            .one(&ctx.db)
+            .await?;
+        if let Some(mut impressions) = impressions {
+            impressions.count += 1;
+            let count = impressions.count;
+            let mut active_impressions = impressions.into_active_model();
+            active_impressions.count = Set(count);
+            active_impressions.update(&ctx.db).await?;
+        }
+    }
+
     views::post::list(&v, &item, &ctx).await
 }
 
